@@ -30,7 +30,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 dir('app'){
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerHub_auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
                             docker build -t jinitus/dodo:v2 .
                             docker login -u ${USERNAME} -p ${PASSWORD}

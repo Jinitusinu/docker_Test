@@ -32,9 +32,9 @@ pipeline {
                 dir('app'){
                     withCredentials([usernamePassword(credentialsId: 'dockerHub_auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
-                            sudo docker build -t jinitus/dodo:v2 .
-                            sudo docker login -u ${USERNAME} -p ${PASSWORD}
-                            sudo docker push jinitus/dodo:v2
+                             docker build -t jinitus/dodo:v2 .
+                             docker login -u ${USERNAME} -p ${PASSWORD}
+                             docker push jinitus/dodo:v2
                         '''
                     }
                 }
@@ -44,8 +44,8 @@ pipeline {
         stage('Deploy container'){
             steps {
                 echo "deploying container"
-                sh 'sudo docker stop dodo-app || true && docker rm dodo-app || true'
-                sh 'sudo docker run --name dodo-app -d -p 3000:3000 jinitus/dodo:v2'
+                sh 'docker stop dodo-app || true && docker rm dodo-app || true'
+                sh 'docker run --name dodo-app -d -p 3000:3000 jinitus/dodo:v2'
             }
         }
 

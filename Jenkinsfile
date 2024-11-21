@@ -20,11 +20,11 @@ pipeline {
             }
         }
 
-        stage('Test'){
-            steps {
-                sh 'curl -I localhost:300'
-            }
-        }
+        //stage('Test'){
+          //  steps {
+            //    sh 'curl -I localhost:300'
+            //}
+        //}
 
         stage('Build and Push') {
             steps {

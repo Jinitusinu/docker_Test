@@ -22,7 +22,7 @@ pipeline {
 
         stage('Test'){
             steps {
-                sh 'curl -I localhost:300'
+                sh 'curl -I localhost:3000'
             }
         }
 
@@ -32,9 +32,9 @@ pipeline {
                 dir('app'){
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
-                            docker build -t msalim22/todo-list-app:v2 .
+                            docker build -t jinitus/dodo:v2 .
                             docker login -u ${USERNAME} -p ${PASSWORD}
-                            docker push msalim22/todo-list-app:v2
+                            docker push jinitus/dodo:v2
                         '''
                     }
                 }
@@ -44,8 +44,8 @@ pipeline {
         stage('Deploy container'){
             steps {
                 echo "deploying container"
-                sh 'docker stop todo-app || true && docker rm todo-app || true'
-                sh 'docker run --name todo-app -d -p 3000:3000 msalim22/todo-list-app:v2'
+                sh 'docker stop dodo-app || true && docker rm dodo-app || true'
+                sh 'docker run --name dodo-app -d -p 3000:3000 jinitus/dodo:v2'
             }
         }
 
